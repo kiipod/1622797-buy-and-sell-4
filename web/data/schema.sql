@@ -42,7 +42,18 @@ CREATE TABLE ads (
 CREATE TABLE adsToCategories (
   id int AUTO_INCREMENT PRIMARY KEY,
   adsId int NOT NULL,
-  categoryId NOT NULL,
+  categoryId int NOT NULL,
   FOREIGN KEY (adsId) REFERENCES ads (id),
   FOREIGN KEY (categoryId) REFERENCES adCategories (id),
+);
+
+/* Таблица с комментариями к товару */
+CREATE TABLE comments (
+  id int AUTO_INCREMENT PRIMARY KEY,
+  author int NOT NULL,
+  adId int NOT NULL,
+  comment TEXT NOT NULL,
+  dateCreation DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (author) REFERENCES users (id),
+  FOREIGN KEY (adId) REFERENCES ads (id)
 );
