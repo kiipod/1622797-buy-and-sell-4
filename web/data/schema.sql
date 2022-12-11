@@ -28,6 +28,7 @@ CREATE TABLE adCategories (
 CREATE TABLE ads (
   id int AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
+  price int NOT NULL,
   imageSrc VARCHAR(255) NOT NULL,
   typeId int NOT NULL,
   description TEXT NOT NULL,
@@ -52,7 +53,7 @@ CREATE TABLE comments (
   id int AUTO_INCREMENT PRIMARY KEY,
   author int NOT NULL,
   adId int NOT NULL,
-  comment TEXT NOT NULL,
+  text TEXT NOT NULL,
   dateCreation DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (author) REFERENCES users (id),
   FOREIGN KEY (adId) REFERENCES ads (id)

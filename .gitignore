@@ -39,5 +39,5 @@ tests/_support/_generated
 #runtime folder
 /runtime
 
-#docker data
-/docker/data
+#cache
+*.cache
