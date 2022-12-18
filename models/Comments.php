@@ -36,8 +36,10 @@ class Comments extends \yii\db\ActiveRecord
             [['author', 'adId'], 'integer'],
             [['text'], 'string'],
             [['dateCreation'], 'safe'],
-            [['adId'], 'exist', 'skipOnError' => true, 'targetClass' => Ads::class, 'targetAttribute' => ['adId' => 'id']],
-            [['author'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['author' => 'id']],
+            [['adId'], 'exist', 'skipOnError' => true,
+                'targetClass' => Ads::class, 'targetAttribute' => ['adId' => 'id']],
+            [['author'], 'exist', 'skipOnError' => true,
+                'targetClass' => Users::class, 'targetAttribute' => ['author' => 'id']],
         ];
     }
 

@@ -21,7 +21,8 @@ CREATE TABLE adTypes (
 /* Таблица категорий объявлений */
 CREATE TABLE adCategories (
   id int AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(64) NOT NULL
+  name VARCHAR(64) NOT NULL,
+  icon VARCHAR(20)
 );
 
 /* Таблица объявлений */

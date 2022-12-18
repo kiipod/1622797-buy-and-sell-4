@@ -32,8 +32,10 @@ class AdsToCategories extends \yii\db\ActiveRecord
         return [
             [['adId', 'categoryId'], 'required'],
             [['adId', 'categoryId'], 'integer'],
-            [['categoryId'], 'exist', 'skipOnError' => true, 'targetClass' => AdCategories::class, 'targetAttribute' => ['categoryId' => 'id']],
-            [['adId'], 'exist', 'skipOnError' => true, 'targetClass' => Ads::class, 'targetAttribute' => ['adId' => 'id']],
+            [['categoryId'], 'exist', 'skipOnError' => true,
+                'targetClass' => AdCategories::class, 'targetAttribute' => ['categoryId' => 'id']],
+            [['adId'], 'exist', 'skipOnError' => true,
+                'targetClass' => Ads::class, 'targetAttribute' => ['adId' => 'id']],
         ];
     }
 

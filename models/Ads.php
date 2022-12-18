@@ -15,6 +15,7 @@ use Yii;
  * @property int $author
  * @property string $email
  * @property string $dateCreation
+ * @property int $price
  *
  * @property AdsToCategories[] $adsToCategories
  * @property Users $author0
@@ -38,13 +39,15 @@ class Ads extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'imageSrc', 'typeId', 'description', 'author', 'email'], 'required'],
-            [['typeId', 'author'], 'integer'],
+            [['typeId', 'author', 'price'], 'integer'],
             [['description'], 'string'],
             [['dateCreation'], 'safe'],
             [['name', 'imageSrc'], 'string', 'max' => 255],
             [['email'], 'string', 'max' => 64],
-            [['author'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['author' => 'id']],
-            [['typeId'], 'exist', 'skipOnError' => true, 'targetClass' => AdTypes::class, 'targetAttribute' => ['typeId' => 'id']],
+            [['author'], 'exist', 'skipOnError' => true,
+                'targetClass' => Users::class, 'targetAttribute' => ['author' => 'id']],
+            [['typeId'], 'exist', 'skipOnError' => true,
+                'targetClass' => AdTypes::class, 'targetAttribute' => ['typeId' => 'id']],
         ];
     }
 
@@ -62,6 +65,7 @@ class Ads extends \yii\db\ActiveRecord
             'author' => 'Author',
             'email' => 'Email',
             'dateCreation' => 'Date Creation',
+            'price' => 'Price'
         ];
     }
 

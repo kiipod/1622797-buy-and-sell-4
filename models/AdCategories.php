@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $name
+ * @property string $icon
  *
  * @property AdsToCategories[] $adsToCategories
  */
@@ -29,7 +30,7 @@ class AdCategories extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['name'], 'string', 'max' => 64],
+            [['name', 'icon'], 'string', 'max' => 64],
         ];
     }
 
@@ -41,6 +42,7 @@ class AdCategories extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'icon' => 'Icon'
         ];
     }
 
