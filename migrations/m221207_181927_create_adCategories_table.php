@@ -14,7 +14,8 @@ class m221207_181927_create_adCategories_table extends Migration
     {
         $this->createTable('{{%adCategories}}', [
             'id' => $this->primaryKey(),
-            'name' => $this->string(64)->notNull()
+            'name' => $this->string(64)->notNull(),
+            'icon' => $this->string(20)
         ]);
     }
 

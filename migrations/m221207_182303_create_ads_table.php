@@ -15,6 +15,7 @@ class m221207_182303_create_ads_table extends Migration
         $this->createTable('{{%ads}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string(255)->notNull(),
+            'price' => $this->integer()->notNull(),
             'imageSrc' => $this->string(255)->notNull(),
             'typeId' => $this->integer()->notNull(),
             'description' => $this->text()->notNull(),
