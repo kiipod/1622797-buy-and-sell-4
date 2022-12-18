@@ -14,7 +14,7 @@ class m221207_191507_add_data_to_AdCategories extends Migration
     {
         $this->batchInsert(
             'adCategories',
-            ['name', 'icon'],
+            ['name'],
             [
                 ['Дом'],
                 ['Спорт и отдых'],
