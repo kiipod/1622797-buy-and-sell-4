@@ -4,12 +4,12 @@ USE buyandsell;
 /* Таблица пользователей */
 CREATE TABLE users (
   id int AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  lastName VARCHAR(255) NOT NULL,
+  username VARCHAR(255) NOT NULL,
   email VARCHAR(64) NOT NULL UNIQUE,
   password VARCHAR(64)  NOT NULL,
   avatarSrc VARCHAR(255) NULL,
-  vkId int
+  vkId int,
+  admin BOOLEAN NULL
 );
 
 /* Таблица типа товаров */
@@ -21,8 +21,7 @@ CREATE TABLE adTypes (
 /* Таблица категорий объявлений */
 CREATE TABLE adCategories (
   id int AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(64) NOT NULL,
-  icon VARCHAR(20)
+  name VARCHAR(64) NOT NULL
 );
 
 /* Таблица объявлений */
@@ -59,3 +58,6 @@ CREATE TABLE comments (
   FOREIGN KEY (author) REFERENCES users (id),
   FOREIGN KEY (adId) REFERENCES ads (id)
 );
+
+/* Создаем индекс для полнотекстового поиска */
+CREATE FULLTEXT INDEX ads_ft_search ON ads(name, description);

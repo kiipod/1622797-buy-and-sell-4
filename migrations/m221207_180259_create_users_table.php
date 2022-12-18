@@ -14,12 +14,12 @@ class m221207_180259_create_users_table extends Migration
     {
         $this->createTable('{{%users}}', [
             'id' => $this->primaryKey(),
-            'name' => $this->string(255)->notNull(),
-            'lastName' => $this->string(255)->notNull(),
+            'username' => $this->string(255)->notNull(),
             'email' => $this->string(64)->unique()->notNull(),
             'password' => $this->string(64)->notNull(),
             'avatarSrc' => $this->string(255)->null(),
-            'vkId' => $this->integer()->null()
+            'vkId' => $this->integer()->null(),
+            'admin' => $this->boolean()->null()
         ]);
     }
 

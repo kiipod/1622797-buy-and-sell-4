@@ -5,8 +5,7 @@
  * @var $index integer
  */
 return [
-    'name' => $faker->firstName,
-    'lastName' => $faker->lastName,
+    'username' => $faker->name,
     'email' => $faker->email,
     'password' => $faker->password,
     'avatarSrc' => $faker->randomElement([
