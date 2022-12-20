@@ -14,14 +14,14 @@ class m221207_191507_add_data_to_AdCategories extends Migration
     {
         $this->batchInsert(
             'adCategories',
-            ['name', 'icon'],
+            ['name'],
             [
-                ['Дом', 'home'],
-                ['Спорт и отдых', 'sport'],
-                ['Авто', 'auto'],
-                ['Электроника', 'tech'],
-                ['Одежда', 'clothes'],
-                ['Книги', 'books'],
+                ['Дом'],
+                ['Спорт и отдых'],
+                ['Авто'],
+                ['Электроника'],
+                ['Одежда'],
+                ['Книги'],
             ]
         );
     }

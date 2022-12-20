@@ -8,12 +8,12 @@ use Yii;
  * This is the model class for table "users".
  *
  * @property int $id
- * @property string $name
- * @property string $lastName
+ * @property string $username
  * @property string $email
  * @property string $password
  * @property string|null $avatarSrc
  * @property int|null $vkId
+ * @property int $admin
  *
  * @property Ads[] $ads
  * @property Comments[] $comments
@@ -34,11 +34,11 @@ class Users extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'lastName', 'email', 'password'], 'required'],
-            [['vkId'], 'integer'],
-            [['name', 'lastName', 'avatarSrc'], 'string', 'max' => 255],
+            [['username', 'email', 'password'], 'required'],
+            [['vkId', 'admin'], 'integer'],
+            [['username', 'avatarSrc'], 'string', 'max' => 255],
             [['email', 'password'], 'string', 'max' => 64],
-            [['email'], 'unique'],
+            [['email'], 'unique']
         ];
     }
 
@@ -49,12 +49,12 @@ class Users extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'lastName' => 'Last Name',
+            'username' => 'Name',
             'email' => 'Email',
             'password' => 'Password',
             'avatarSrc' => 'Avatar Src',
             'vkId' => 'Vk ID',
+            'admin' => 'Admin'
         ];
     }
 

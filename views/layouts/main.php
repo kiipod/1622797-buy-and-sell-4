@@ -28,16 +28,16 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
 <header class="header">
     <div class="header__wrapper">
-        <a class="header__logo logo" href="<?= Url::to('/') ?>">
+        <a class="header__logo logo" href="<?= Url::toRoute('/') ?>">
             <img src="../../img/logo.svg" width="179" height="34" alt="Логотип Куплю Продам">
         </a>
         <nav class="header__user-menu">
             <ul class="header__list">
                 <li class="header__item">
-                    <a href="<?= Url::to('/my') ?>">Публикации</a>
+                    <a href="<?= Url::toRoute('/my') ?>">Публикации</a>
                 </li>
                 <li class="header__item">
-                    <a href="<?= Url::to('/my/comments') ?>">Комментарии</a>
+                    <a href="<?= Url::toRoute('/my/comments') ?>">Комментарии</a>
                 </li>
             </ul>
         </nav>
@@ -46,10 +46,10 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             <div class="search__icon"></div>
             <div class="search__close-btn"></div>
         </form>
-        <a class="header__avatar avatar" href="<?= Url::to('/my') ?>">
+        <a class="header__avatar avatar" href="<?= Url::toRoute('/my') ?>">
             <img src="../../web/img/avatar.jpg" srcset="../../web/img/avatar@2x.jpg 2x" alt="Аватар пользователя">
         </a>
-        <a class="header__input" href="<?= Url::to('/register') ?>">Вход и регистрация</a>
+        <a class="header__input" href="<?= Url::toRoute('/register') ?>">Вход и регистрация</a>
     </div>
 </header>
 
@@ -71,17 +71,17 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             <p class="page-footer__copyright">© 2019 Проект Академии</p>
         </div>
         <div class="page-footer__col">
-            <a href="<?= Url::to('/') ?>" class="page-footer__logo logo">
+            <a href="<?= Url::toRoute('/') ?>" class="page-footer__logo logo">
                 <img src="../../img/logo.svg" width="179" height="35" alt="Логотип Куплю Продам">
             </a>
         </div>
         <div class="page-footer__col">
             <ul class="page-footer__nav">
                 <li>
-                    <a href="<?= Url::to('/register') ?>">Вход и регистрация</a>
+                    <a href="<?= Url::toRoute('/register') ?>">Вход и регистрация</a>
                 </li>
                 <li>
-                    <a href="<?= Url::to('/offers/add') ?>">Создать объявление</a>
+                    <a href="<?= Url::toRoute('/offers/add') ?>">Создать объявление</a>
                 </li>
             </ul>
         </div>

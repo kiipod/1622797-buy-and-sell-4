@@ -7,10 +7,8 @@ use app\models\Ads;
 use app\models\Comments;
 use yii\data\ActiveDataProvider;
 
-class AdsServices
+class AdsService
 {
-    private const LIMIT_ADS = 8;
-
     /** Метод выводит количество объявлений по каждой категории
      *
      * @return ActiveDataProvider
