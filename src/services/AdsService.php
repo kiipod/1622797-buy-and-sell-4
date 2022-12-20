@@ -7,7 +7,7 @@ use app\models\Ads;
 use app\models\Comments;
 use yii\data\ActiveDataProvider;
 
-class AdsServices
+class AdsService
 {
     /** Метод выводит количество объявлений по каждой категории
      *

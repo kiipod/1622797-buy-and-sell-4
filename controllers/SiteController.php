@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use yii\web\Controller;
-use buyandsell\services\AdsServices;
+use buyandsell\services\AdsService;
 
 class SiteController extends Controller
 {
@@ -26,7 +26,7 @@ class SiteController extends Controller
      */
     public function actionIndex(): string
     {
-        $adsServices = new AdsServices();
+        $adsServices = new AdsService();
 
         $newAds = $adsServices->getNewAds();
         $commentedAds = $adsServices->getCommentedAds();

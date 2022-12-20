@@ -41,3 +41,6 @@ tests/_support/_generated
 
 #cache
 *.cache
+
+#uploads directory
+/web/uploads
