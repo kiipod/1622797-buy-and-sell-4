@@ -29,7 +29,7 @@ $this->title = 'Регистрация нового пользователя';
 ?>
         <div class="sign-up__title">
             <?= Html::tag('h2', 'Регистрация'); ?>
-            <a class="sign-up__link" href="<?= Url::to('/login') ?>">Вход</a>
+            <a class="sign-up__link" href="<?= Url::toRoute('/login') ?>">Вход</a>
         </div>
         <div class="sign-up__avatar-container js-preview-container">
             <div class="sign-up__avatar js-preview"></div>

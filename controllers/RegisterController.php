@@ -2,11 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\forms\RegistrationForm;
 use buyandsell\services\RegistrationService;
 use Yii;
 use yii\base\Exception;
 use yii\web\Controller;
-use app\models\form\RegistrationForm;
 use yii\web\ServerErrorHttpException;
 use yii\web\Response;
 use yii\web\UploadedFile;
