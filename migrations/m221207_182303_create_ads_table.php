@@ -20,7 +20,6 @@ class m221207_182303_create_ads_table extends Migration
             'typeId' => $this->integer()->notNull(),
             'description' => $this->text()->notNull(),
             'author' => $this->integer()->notNull(),
-            'email' => $this->string(64)->notNull(),
             'dateCreation' => $this->dateTime()
                 ->defaultExpression('CURRENT_TIMESTAMP')->notNull()
         ]);

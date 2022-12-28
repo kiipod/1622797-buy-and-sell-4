@@ -2,7 +2,7 @@
 
 namespace buyandsell\services;
 
-use app\models\form\RegistrationForm;
+use app\models\forms\RegistrationForm;
 use app\models\Users;
 use Yii;
 use yii\base\Exception;

@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "adCategories".
@@ -17,7 +17,7 @@ class AdCategories extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return 'adCategories';
     }
@@ -25,7 +25,7 @@ class AdCategories extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['name'], 'required'],
@@ -36,7 +36,7 @@ class AdCategories extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => 'ID',
@@ -49,7 +49,7 @@ class AdCategories extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getAdsToCategories()
+    public function getAdsToCategories(): ActiveQuery
     {
         return $this->hasMany(AdsToCategories::class, ['categoryId' => 'id']);
     }

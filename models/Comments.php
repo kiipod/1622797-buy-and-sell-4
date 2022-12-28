@@ -14,7 +14,7 @@ use Yii;
  * @property string $dateCreation
  *
  * @property Ads $ad
- * @property Users $author0
+ * @property Users $authorUser
  */
 class Comments extends \yii\db\ActiveRecord
 {
@@ -72,7 +72,7 @@ class Comments extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getAuthor()
+    public function getAuthorUser()
     {
         return $this->hasOne(Users::class, ['id' => 'author']);
     }
