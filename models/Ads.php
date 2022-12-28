@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\base\InvalidConfigException;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "ads".
@@ -13,12 +15,11 @@ use Yii;
  * @property int $typeId
  * @property string $description
  * @property int $author
- * @property string $email
  * @property string $dateCreation
  * @property int $price
  *
  * @property AdsToCategories[] $adsToCategories
- * @property Users $author0
+ * @property Users $authorAds
  * @property Comments[] $comments
  * @property AdTypes $type
  */
@@ -27,7 +28,7 @@ class Ads extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return 'ads';
     }
@@ -35,15 +36,14 @@ class Ads extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            [['name', 'imageSrc', 'typeId', 'description', 'author', 'email'], 'required'],
+            [['name', 'imageSrc', 'typeId', 'description', 'author'], 'required'],
             [['typeId', 'author', 'price'], 'integer'],
             [['description'], 'string'],
             [['dateCreation'], 'safe'],
             [['name', 'imageSrc'], 'string', 'max' => 255],
-            [['email'], 'string', 'max' => 64],
             [['author'], 'exist', 'skipOnError' => true,
                 'targetClass' => Users::class, 'targetAttribute' => ['author' => 'id']],
             [['typeId'], 'exist', 'skipOnError' => true,
@@ -54,7 +54,7 @@ class Ads extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => 'ID',
@@ -63,7 +63,6 @@ class Ads extends \yii\db\ActiveRecord
             'typeId' => 'Type ID',
             'description' => 'Description',
             'author' => 'Author',
-            'email' => 'Email',
             'dateCreation' => 'Date Creation',
             'price' => 'Price'
         ];
@@ -74,17 +73,17 @@ class Ads extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getAdsToCategories()
+    public function getAdsToCategories(): ActiveQuery
     {
         return $this->hasMany(AdsToCategories::class, ['adId' => 'id']);
     }
 
     /**
-     * Gets query for [[Author0]].
+     * Gets query for [[AuthorAds]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getAuthor()
+    public function getAuthorAds(): ActiveQuery
     {
         return $this->hasOne(Users::class, ['id' => 'author']);
     }
@@ -94,7 +93,7 @@ class Ads extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getComments()
+    public function getComments(): ActiveQuery
     {
         return $this->hasMany(Comments::class, ['adId' => 'id']);
     }
@@ -104,7 +103,7 @@ class Ads extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getType()
+    public function getType(): ActiveQuery
     {
         return $this->hasOne(AdTypes::class, ['id' => 'typeId']);
     }

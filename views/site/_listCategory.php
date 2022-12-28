@@ -5,7 +5,7 @@ use yii\helpers\Url;
 ?>
 
 <li class="categories-list__item">
-    <a href="<?= Url::to(['offers/category/', 'id' => $model->id ]); ?>"
+    <a href="<?= Url::toRoute(['offers/category/', 'id' => $model->id ]); ?>"
        class="category-tile category-tile--default">
           <span class="category-tile__image">
             <img src="../../img/home.jpg"

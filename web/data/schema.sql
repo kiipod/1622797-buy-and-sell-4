@@ -33,7 +33,6 @@ CREATE TABLE ads (
   typeId int NOT NULL,
   description TEXT NOT NULL,
   author int NOT NULL,
-  email VARCHAR(64) NOT NULL,
   dateCreation DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (typeId) REFERENCES adTypes (id),
   FOREIGN KEY (author) REFERENCES users (id)

@@ -21,7 +21,7 @@ use yii\helpers\Html;
                 <?php endforeach; ?>
             </div>
             <div class="ticket-card__header">
-                <h3 class="ticket-card__title"><a href="<?= Url::to(['offers/',
+                <h3 class="ticket-card__title"><a href="<?= Url::toRoute(['offers/view',
                         'id' => $model->id]); ?>">
                         <?= Html::encode($model->name); ?>
                     </a>
