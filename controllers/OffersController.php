@@ -4,11 +4,15 @@ namespace app\controllers;
 
 use app\models\Ads;
 use app\models\forms\CommentForm;
+use app\models\forms\OfferForm;
 use buyandsell\services\CommentService;
+use buyandsell\services\CreateAdsService;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 use yii\web\ServerErrorHttpException;
+use yii\web\UploadedFile;
 
 class OffersController extends Controller
 {
@@ -43,5 +47,31 @@ class OffersController extends Controller
             'ads' => $ads,
             'commentForm' => $commentForm
         ]);
+    }
+
+    /** Метод отвечает за показ страницы добавления нового объявления
+     *
+     * @return Response|string
+     * @throws ServerErrorHttpException
+     */
+    public function actionAdd(): Response|string
+    {
+        $offerForm = new OfferForm();
+        $createAdsService = new CreateAdsService();
+        $author = Yii::$app->user->getId();
+
+        if (Yii::$app->request->getIsPost()) {
+            $offerForm->load(Yii::$app->request->post());
+            $offerForm->image = UploadedFile::getInstance($offerForm, 'image');
+
+            if ($offerForm->validate()) {
+                if (!$createAdsService->createAds($offerForm, $author)) {
+                    throw new ServerErrorHttpException(
+                        'Не удалось создать новое объявление, повторите попытку позже'
+                    );
+                }
+            }
+        }
+        return $this->render('add', ['offerForm' => $offerForm]);
     }
 }

@@ -15,7 +15,7 @@ class FilesService
      */
     public function uploadFile(object $file, string $folder): string
     {
-        $nameFile = uniqid('avatar') . '.' . $file->getExtension();
+        $nameFile = uniqid() . '.' . $file->getExtension();
 
         if (!$file->saveAs("@webroot/uploads/{$folder}/" . $nameFile)) {
             throw new ServerErrorHttpException('Файл не удалось загрузить');
