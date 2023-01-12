@@ -38,7 +38,9 @@ class OffersController extends Controller
 
             if ($commentForm->validate()) {
                 if (!$commentService->createComment($commentForm, $ads)) {
-                    throw new ServerErrorHttpException('Не удалось создать комментарий, попробуйте попытку позже');
+                    throw new ServerErrorHttpException(
+                        'Не удалось создать комментарий, попробуйте попытку позже'
+                    );
                 }
             }
         }
@@ -73,5 +75,30 @@ class OffersController extends Controller
             }
         }
         return $this->render('add', ['offerForm' => $offerForm]);
+    }
+
+    /** Метод отвечает за показ страницы редактирования объявления
+     *
+     * @param int $id
+     * @return string|Response
+     * @throws ServerErrorHttpException
+     */
+    public function actionEdit(int $id): Response|string
+    {
+        $currentAds = Ads::find()->where(['id' => $id])->with('adsToCategories')->one();
+        $author = Yii::$app->user->getId();
+
+        $offerForm = new OfferForm();
+        $adsEdit = new CreateAdsService();
+
+        $adsEdit->autocompleteForm($offerForm, $currentAds);
+
+        if (Yii::$app->request->getIsPost()) {
+            $offerForm->load(Yii::$app->request->post());
+            $offerId = $adsEdit->createAds($offerForm, $author);
+
+            return $this->redirect(['offers/', 'id' => $offerId]);
+        }
+        return $this->render('edit', ['offerForm' => $offerForm]);
     }
 }
