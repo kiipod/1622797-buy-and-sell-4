@@ -8,7 +8,8 @@ use yii\helpers\Html;
 <li class="tickets-list__item">
     <div class="ticket-card ticket-card--color08">
         <div class="ticket-card__img">
-            <img src="<?= $model->ads->imageSrc; ?>" srcset="<?= $model->ads->imageSrc; ?>@2x.jpg 2x"
+            <img src="/uploads/images/<?= $model->ads->imageSrc; ?>"
+                 srcset="/uploads/images/<?= $model->ads->imageSrc; ?>@2x.jpg 2x"
                  alt="Изображение товара">
         </div>
         <div class="ticket-card__info">
