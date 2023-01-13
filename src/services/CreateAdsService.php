@@ -38,4 +38,23 @@ class CreateAdsService
         }
         return $newAds->save();
     }
+
+    /** Метод заполняет поля редактирования объявлениями данными из БД
+     *
+     * @param OfferForm $form
+     * @param $currentAds
+     * @return void
+     */
+    public function autocompleteForm(OfferForm $form, $currentAds): void
+    {
+        if ($currentAds->imageSrc) {
+            $form->image = $currentAds->imageSrc;
+        }
+
+        $form->name = $currentAds->name;
+        $form->typeId = $currentAds->typeId;
+        $form->categories = $currentAds->categories;
+        $form->description = $currentAds->description;
+        $form->price = $currentAds->price;
+    }
 }

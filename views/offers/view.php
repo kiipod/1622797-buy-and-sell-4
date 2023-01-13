@@ -18,7 +18,8 @@ $user = Yii::$app->user->getIdentity();
         <h1 class="visually-hidden">Карточка объявления</h1>
         <div class="ticket__content">
             <div class="ticket__img">
-                <img src="img/ticket.jpg" srcset="img/ticket@2x.jpg 2x" alt="Изображение товара">
+                <img src="/uploads/images/<?= $ads->imageSrc; ?>"
+                     srcset="/uploads/images/<?= $ads->imageSrc; ?>@2x.jpg 2x" alt="Изображение товара">
             </div>
             <div class="ticket__info">
                 <h2 class="ticket__title"><?= Html::encode($ads->name); ?></h2>
