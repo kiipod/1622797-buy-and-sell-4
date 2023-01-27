@@ -6,6 +6,7 @@ use app\models\AdCategories;
 use app\models\Ads;
 use app\models\Comments;
 use yii\data\ActiveDataProvider;
+use yii\db\ActiveQuery;
 
 class AdsService
 {
@@ -37,7 +38,7 @@ class AdsService
                 'defaultOrder' => [
                     'dateCreation' => SORT_DESC,
                 ]
-            ],
+            ]
         ]);
     }
 
@@ -51,9 +52,42 @@ class AdsService
             'query' => Comments::find()->groupBy('adId')
                 ->having('COUNT(text) > 0')->orderBy('COUNT(text) DESC'),
             'pagination' => [
-        'pageSize' => 8,
-        'pageSizeParam' => false
+                'pageSize' => 8,
+                'pageSizeParam' => false
             ]
         ]);
+    }
+
+    /** Метод получает объявления заданной категории
+     *
+     * @param int $id
+     * @return ActiveDataProvider
+     */
+    public function getAdsToCategories(int $id): ActiveDataProvider
+    {
+        return new ActiveDataProvider([
+            'query' => Ads::find()->joinWith('adsToCategories')
+                ->where(['categoryId' => $id]),
+            'pagination' => [
+                'pageSize' => 8,
+                'pageSizeParam' => false
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'dateCreation' => SORT_DESC,
+                ]
+            ]
+        ]);
+    }
+
+    /**
+     * @param int $categoryId
+     * @return ActiveQuery
+     */
+    public function getCategoryAdsToPagination(int $categoryId): ActiveQuery
+    {
+        return Ads::find()
+            ->joinWith('adsToCategories')
+            ->where(['categoryId' => $categoryId]);
     }
 }

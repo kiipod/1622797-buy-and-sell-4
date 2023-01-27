@@ -2,12 +2,15 @@
 
 namespace app\controllers;
 
+use app\models\AdCategories;
 use app\models\Ads;
 use app\models\forms\CommentForm;
 use app\models\forms\OfferForm;
 use buyandsell\services\CommentService;
 use buyandsell\services\CreateAdsService;
+use buyandsell\services\AdsService;
 use Yii;
+use yii\data\Pagination;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -100,5 +103,40 @@ class OffersController extends Controller
             return $this->redirect(['offers/', 'id' => $offerId]);
         }
         return $this->render('edit', ['offerForm' => $offerForm]);
+    }
+
+    /** Метод отвечает за показ страницы объявлений по заданным категориям
+     *
+     * @param int $id
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionCategory(int $id): string
+    {
+        $adsServices = new AdsService();
+
+        $categoryAds = $adsServices->getCategoriesAds();
+        $categoryAdsCount = $adsServices->getCategoryAdsToPagination($id);
+        $currentCategory = AdCategories::findOne($id);
+
+        if (!$currentCategory) {
+            throw new NotFoundHttpException('Такой категории не существует', 404);
+        }
+
+        $adsToCategories = $adsServices->getAdsToCategories($id);
+
+        $pagination = new Pagination([
+            'totalCount' => $categoryAdsCount->count(),
+            'pageSize' => 8,
+            'forcePageParam' => false,
+            'pageSizeParam' => false
+        ]);
+
+        return $this->render('category', [
+            'categoryAds' => $categoryAds,
+            'currentCategory' => $currentCategory,
+            'adsToCategories' => $adsToCategories,
+            'pagination' => $pagination
+        ]);
     }
 }
