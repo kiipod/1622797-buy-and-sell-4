@@ -75,6 +75,7 @@ class OffersController extends Controller
                         'Не удалось создать новое объявление, повторите попытку позже'
                     );
                 }
+                return $this->redirect(['my/index']);
             }
         }
         return $this->render('add', ['offerForm' => $offerForm]);

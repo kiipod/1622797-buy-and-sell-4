@@ -7,6 +7,8 @@ use app\models\Ads;
 use app\models\Comments;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+use yii\db\StaleObjectException;
 
 class AdsService
 {
@@ -80,7 +82,8 @@ class AdsService
         ]);
     }
 
-    /**
+    /** Метод подсчитывает количество объявлений для пагинации
+     *
      * @param int $categoryId
      * @return ActiveQuery
      */
@@ -89,5 +92,29 @@ class AdsService
         return Ads::find()
             ->joinWith('adsToCategories')
             ->where(['categoryId' => $categoryId]);
+    }
+
+    /** Метод удаляет объявление и все комментарии к нему
+     *
+     * @param Ads $ads
+     * @return true
+     * @throws \Throwable
+     * @throws StaleObjectException
+     */
+    public function deleteAds(ActiveRecord $ads): bool
+    {
+        $comments = $ads->comments;
+
+        foreach ($comments as $comment) {
+            $comment->delete();
+        }
+
+        $ads->delete();
+
+        if (!$ads->delete()) {
+            return false;
+        }
+
+        return true;
     }
 }
