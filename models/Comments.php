@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\StaleObjectException;
 
 /**
  * This is the model class for table "comments".
@@ -75,5 +76,15 @@ class Comments extends \yii\db\ActiveRecord
     public function getAuthorUser()
     {
         return $this->hasOne(Users::class, ['id' => 'author']);
+    }
+
+    /**
+     * @return void
+     * @throws \Throwable
+     * @throws StaleObjectException
+     */
+    public function deleteComment(): void
+    {
+        $this->delete();
     }
 }
