@@ -114,7 +114,23 @@ class AdsService
         if (!$ads->delete()) {
             return false;
         }
-
         return true;
+    }
+
+    /** Метод осуществляет полнотекстовый поиск по названию объявлений
+     *
+     * @param string $query
+     * @return ActiveDataProvider
+     */
+    public function getSearchedAds(string $query): ActiveDataProvider
+    {
+        return new ActiveDataProvider([
+            'query' => Ads::find()->where("MATCH(name) AGAINST('{$query}')"),
+            'sort' => [
+                'defaultOrder' => [
+                    'dateCreation' => SORT_DESC
+                ]
+            ]
+        ]);
     }
 }
