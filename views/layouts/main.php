@@ -4,8 +4,10 @@
 /** @var string $content */
 
 use app\assets\AppAsset;
+use app\models\forms\SearchForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\ActiveForm;
 
 AppAsset::register($this);
 
@@ -46,14 +48,26 @@ $user = Yii::$app->user->getIdentity();
             </ul>
         </nav>
         <?php endif; ?>
-        <form class="search" method="get" action="#" autocomplete="off">
-            <input type="search" name="query" placeholder="Поиск" aria-label="Поиск">
-            <div class="search__icon"></div>
+        <?php $searchForm = new SearchForm();
+
+        $form = ActiveForm::begin([
+            'options' => ['class' => 'search'],
+            'fieldConfig' => [
+                'template' => "{label}\n{input}\n
+                    <div class=\"search__icon\"></div>\n
+                    {error}"
+            ],
+            'action' => ['search/index'],
+            'method' => 'get'
+        ]);
+        ?>
+        <?= $form->field($searchForm, 'search')->textInput(['placeholder' => 'Поиск']) ?>
             <div class="search__close-btn"></div>
-        </form>
+        <?php ActiveForm::end(); ?>
         <?php if (Yii::$app->user->getId()) : ?>
         <a class="header__avatar avatar" href="<?= Url::toRoute('/my') ?>">
-            <img src="/uploads/avatar/<?= $user->avatarSrc; ?>" srcset="../../web/img/avatar@2x.jpg 2x" alt="Аватар пользователя">
+            <img src="/uploads/avatar/<?= $user->avatarSrc; ?>" srcset="/uploads/avatar/<?= $user->avatarSrc; ?> 2x"
+                 alt="Аватар пользователя">
         </a>
         <?php endif; ?>
         <?php if (!Yii::$app->user->getId()) : ?>

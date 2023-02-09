@@ -7,7 +7,6 @@
 use app\models\forms\LoginForm;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
-use yii\helpers\Html;
 
 $this->title = 'Вход на сайт';
 ?>
