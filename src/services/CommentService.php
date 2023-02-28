@@ -12,11 +12,10 @@ class CommentService
     /** Метод сохраняет новый комментарий к объявлению
      *
      * @param CommentForm $form
-     * @param $adsId
      * @return bool
      * @throws ServerErrorHttpException
      */
-    public function createComment(CommentForm $form, $adsId): bool
+    public function createComment(CommentForm $form): bool
     {
         $comment = new Comments();
         $comment->author = $form->author;
@@ -36,7 +35,7 @@ class CommentService
      */
     public function getUserAdsWithComments(int $user): array
     {
-        return Ads::find()->leftJoin('comments', 'ads.id = comments.adId')->where(['ads.author' => $user])
-            ->orderBy('comments.dateCreation DESC')->all();
+        return Ads::find()->with('comments')->where(['author' => $user])
+            ->orderBy('dateCreation DESC')->all();
     }
 }

@@ -8,13 +8,44 @@ use buyandsell\services\AdsService;
 use buyandsell\services\CommentService;
 use Yii;
 use yii\db\StaleObjectException;
+use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\web\ServerErrorHttpException;
 
 class MyController extends Controller
 {
+    /**
+     * @return array[]
+     */
+    public function behaviors(): array
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'actions' => ['index', 'comments'],
+                        'allow' => true,
+                        'roles' => ['@']
+                    ],
+                    [
+                        'actions' => ['deleteComment'],
+                        'allow' => true,
+                        'roles' => ['controlOffer']
+                    ],
+                    [
+                        'actions' => ['delete'],
+                        'allow' => true,
+                        'roles' => ['controlOffer']
+                    ],
+                ],
+            ],
+        ];
+    }
+
     /**
      * @return string
      * @throws \Throwable
@@ -62,14 +93,13 @@ class MyController extends Controller
     }
 
     /**
-     * @param int $id
      * @param int $commentId
      * @return Response
      * @throws NotFoundHttpException
      * @throws StaleObjectException
      * @throws \Throwable
      */
-    public function actionDeleteComment(int $adId, int $commentId)
+    public function actionDeleteComment(int $commentId): Response
     {
         $comments = Comments::findOne($commentId);
 
