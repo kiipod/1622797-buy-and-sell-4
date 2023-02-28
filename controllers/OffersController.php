@@ -11,6 +11,8 @@ use buyandsell\services\CreateAdsService;
 use buyandsell\services\AdsService;
 use Yii;
 use yii\data\Pagination;
+use yii\db\Exception;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -19,6 +21,35 @@ use yii\web\UploadedFile;
 
 class OffersController extends Controller
 {
+    /**
+     * @return array[]
+     */
+    public function behaviors(): array
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'actions' => ['view', 'category'],
+                        'allow' => true,
+                        'roles' => ['?', '@']
+                    ],
+                    [
+                        'actions' => ['add'],
+                        'allow' => true,
+                        'roles' => ['createOffer']
+                    ],
+                    [
+                        'actions' => ['edit'],
+                        'allow' => true,
+                        'roles' => ['controlOwnOffer']
+                    ],
+                ],
+            ],
+        ];
+    }
+
     /** Метод отвечающий за просмотр страницы Объявлений
      *
      * @param int $id
@@ -33,6 +64,8 @@ class OffersController extends Controller
             throw new NotFoundHttpException("Объявления с ID $id не существует");
         }
 
+        $authorAds = $ads->author;
+
         $commentForm = new CommentForm();
         $commentService = new CommentService();
 
@@ -40,7 +73,7 @@ class OffersController extends Controller
             $commentForm->load(Yii::$app->request->post());
 
             if ($commentForm->validate()) {
-                if (!$commentService->createComment($commentForm, $ads)) {
+                if (!$commentService->createComment($commentForm)) {
                     throw new ServerErrorHttpException(
                         'Не удалось создать комментарий, попробуйте попытку позже'
                     );
@@ -50,6 +83,7 @@ class OffersController extends Controller
 
         return $this->render('view', [
             'ads' => $ads,
+            'authorAds' => $authorAds,
             'commentForm' => $commentForm
         ]);
     }
@@ -86,6 +120,7 @@ class OffersController extends Controller
      * @param int $id
      * @return string|Response
      * @throws ServerErrorHttpException
+     * @throws Exception
      */
     public function actionEdit(int $id): Response|string
     {
@@ -99,9 +134,14 @@ class OffersController extends Controller
 
         if (Yii::$app->request->getIsPost()) {
             $offerForm->load(Yii::$app->request->post());
-            $offerId = $adsEdit->createAds($offerForm, $author);
+            $offerForm->image = UploadedFile::getInstance($offerForm, 'image');
 
-            return $this->redirect(['offers/', 'id' => $offerId]);
+            if ($offerForm->validate()) {
+                $adsEdit->deleteAdsToCategories($currentAds);
+                $adsEdit->editAds($currentAds, $offerForm, $author);
+
+                return $this->redirect(['view', 'id' => $id]);
+            }
         }
         return $this->render('edit', ['offerForm' => $offerForm]);
     }

@@ -51,14 +51,13 @@ $types = AdTypes::find()->all();
                                 'options' => ['class' => 'form__field']])
                                 ->textarea(['class' => 'js-field']); ?>
                     </div>
-                    <div class="ticket-form__row">
-                    <?= $form->field($offerForm, 'categories')
+                    <?= $form->field($offerForm, 'categories', [
+                        'options' => ['class' => 'ticket-form__row']])
                         ->dropDownList(ArrayHelper::map($categories, 'id', 'name'), [
                             'class' => 'form__select js-multiple-select',
-                            'placeholder' => "Выбрать категорию публикации",
+                            'data-label' => 'Выбрать категорию публикации',
                             'multiple' => true])
                         ->label(false); ?>
-                    </div>
                     <div class="ticket-form__row">
                             <?= $form->field($offerForm, 'price', [
                                 'options' => ['class' => 'form__field form__field--price']])

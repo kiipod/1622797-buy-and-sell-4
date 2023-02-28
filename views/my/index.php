@@ -35,7 +35,7 @@ use yii\helpers\Url;
                             <?php endforeach; ?>
                         </div>
                         <div class="ticket-card__header">
-                            <h3 class="ticket-card__title"><a href="<?= Url::toRoute(['offers/view',
+                            <h3 class="ticket-card__title"><a href="<?= Url::toRoute(['offers/edit',
                                     'id' => $ads->id]); ?>"><?= Html::encode($ads->name); ?></a></h3>
                             <p class="ticket-card__price"><span class="js-sum"><?= Html::encode($ads->price); ?>
                                 </span> ₽</p>

@@ -49,7 +49,7 @@ $this->title = 'Регистрация нового пользователя';
 
         <button class="sign-up__button btn btn--medium js-button" type="submit" disabled="">Создать аккаунт</button>
 
-        <a class="btn btn--small btn--flex btn--white" href="#">
+        <a class="btn btn--small btn--flex btn--white" href="<?= Url::toRoute('login/auth'); ?>">
             Войти через
             <span class="icon icon--vk"></span>
         </a>

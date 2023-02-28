@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use app\models\forms\LoginForm;
+use app\models\Users;
+use buyandsell\services\RegistrationService;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
@@ -41,7 +43,40 @@ class LoginController extends Controller
     public function actionLogout(): Response
     {
         Yii::$app->user->logout();
-
         return $this->redirect('/');
+    }
+
+    /**
+     * @return void
+     */
+    public function actionAuth(): void
+    {
+        $url = Yii::$app->authClientCollection->getClient("vkontakte")->buildAuthUrl();
+        Yii::$app->getResponse()->redirect($url);
+    }
+
+    /**
+     * @return void
+     * @throws \Exception
+     */
+    public function actionVk(): void
+    {
+        $code = Yii::$app->request->get('code');
+        $vkClient = Yii::$app->authClientCollection->getClient("vkontakte");
+        $accessToken = $vkClient->fetchAccessToken($code);
+        $userAttributes = $vkClient->getUserAttributes();
+        $user = Users::findOne(['email' => $userAttributes['email']]);
+
+        if ($user) {
+            if (!$user->vkId) {
+                $user->vkId = $userAttributes['user_id'];
+                $user->save();
+            }
+            Yii::$app->user->login($user);
+            Yii::$app->response->redirect(['/']);
+        } else {
+            $registerService = new RegistrationService();
+            $registerService->vkRegistration($userAttributes);
+        }
     }
 }
