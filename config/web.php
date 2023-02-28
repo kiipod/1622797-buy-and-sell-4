@@ -13,6 +13,19 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'vkontakte' => [
+                    'class' => 'yii\authclient\clients\VKontakte',
+                    'clientId' => '51552452',
+                    'clientSecret' => 'mtkD2oL0rFIx7uOsJm2X'
+                ],
+            ],
+        ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'PXNfaJUXn3HwxUzNw-vONeHlJgVyxOQs',
@@ -25,7 +38,7 @@ $config = [
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'error/index',
         ],
         'mailer' => [
             'class' => \yii\symfonymailer\Mailer::class,
@@ -43,14 +56,21 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'offers/<id:\d+>' => 'offers/view',
+                'offers/category/<categoryId:\d+>/page/<page:\d+>' => 'offers/category',
+                'offers/category/<categoryId:\d+>' => 'offers/category',
+                'offers/edit/<id:\d+>' => 'offers/edit',
+                'register' => 'register/index',
+                'login' => 'login/index',
+                'my' => 'my/index',
+                'my/comments' => 'my/comments',
+                'offers/add' => 'offers/add'
             ],
-        ],
-        */
+        ]
     ],
     'params' => $params,
 ];
