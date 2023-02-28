@@ -24,6 +24,7 @@ class RegisterController extends Controller
         if (Yii::$app->request->getIsPost()) {
             $registerForm->load(Yii::$app->request->post());
             $registerForm->avatar = UploadedFile::getInstance($registerForm, 'avatar');
+
             if ($registerForm->validate()) {
                 $registrationService = new RegistrationService();
                 if (!$registrationService->registration($registerForm)) {
@@ -31,7 +32,7 @@ class RegisterController extends Controller
                         'Не удалось сохранить данные, попробуйте попытку позже'
                     );
                 }
-                return $this->redirect('login');
+                return $this->redirect(['login/index']);
             }
         }
         return $this->render('index', ['registerForm' => $registerForm]);

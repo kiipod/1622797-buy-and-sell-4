@@ -14,8 +14,7 @@ AppAsset::register($this);
 $this->registerCsrfMetaTags();
 $this->registerMetaTag(['charset' => Yii::$app->charset], 'charset');
 $this->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, shrink-to-fit=no']);
-$this->registerMetaTag(['name' => 'description', 'content' => $this->params['meta_description'] ?? '']);
-$this->registerMetaTag(['name' => 'keywords', 'content' => $this->params['meta_keywords'] ?? '']);
+$this->registerMetaTag(['name' => 'description', 'content' => Yii::$app->params['meta_description']]);
 $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii::getAlias('@web/img/favicon.ico')]);
 
 $user = Yii::$app->user->getIdentity();
@@ -107,6 +106,9 @@ $user = Yii::$app->user->getIdentity();
                 <?php else : ?>
                 <li>
                     <a href="<?= Url::toRoute('/offers/add') ?>">Создать объявление</a>
+                </li>
+                <li>
+                    <a href="<?= Url::toRoute('/login/logout') ?>">Выход</a>
                 </li>
                 <?php endif; ?>
             </ul>

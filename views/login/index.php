@@ -33,7 +33,7 @@ $this->title = 'Вход на сайт';
 
         <button class="login__button btn btn--medium js-button" type="submit" disabled="">Войти</button>
 
-        <a class="btn btn--small btn--flex btn--white" href="#">
+        <a class="btn btn--small btn--flex btn--white" href="<?= Url::toRoute('login/auth'); ?>">
             Войти через
             <span class="icon icon--vk"></span>
         </a>
