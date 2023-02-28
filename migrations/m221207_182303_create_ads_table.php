@@ -41,6 +41,8 @@ class m221207_182303_create_ads_table extends Migration
             'id',
             'CASCADE'
         );
+
+        $this->execute('ALTER TABLE ads ADD FULLTEXT nameAds_fulltext (`name`)');
     }
 
     /**
